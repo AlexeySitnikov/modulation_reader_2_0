@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export const useDownloadFile = ({ selectedFile }) => {
+export const useRows = ({ selectedFile }) => {
   const [arrayOfStrings, setArrayOfStrings] = useState([])
 
   useEffect(() => {
@@ -55,7 +55,28 @@ export const useDownloadFile = ({ selectedFile }) => {
     })))
   }
 
+  const onClickCheckAllRows = (e) => {
+    e.stopPropagation()
+    if (e.target.checked) {
+      setCheckAllRows()
+    } else {
+      setUnCheckAllRows()
+    }
+  }
+
+  const onDeleteButtonHandler = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    deleteChecked()
+  }
+
   return {
-    arrayOfStrings, setChecked, deleteChecked, setCheckAllRows, setUnCheckAllRows,
+    arrayOfStrings,
+    setChecked,
+    deleteChecked,
+    setCheckAllRows,
+    setUnCheckAllRows,
+    onClickCheckAllRows,
+    onDeleteButtonHandler,
   }
 }
