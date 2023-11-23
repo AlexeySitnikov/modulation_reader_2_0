@@ -15,7 +15,7 @@ export const useModalWindow = ({ arrayOfStrings }) => {
     e.stopPropagation()
     setIsModalOpen(true)
     if (e.target.id === 'CST') { setContent(<GetModulationForCST arrayOfStrings={arrayOfStrings} />) }
-    if (e.target.id === 'points') { setContent(<GetModulationByPoints />) }
+    if (e.target.id === 'points') { setContent(<GetModulationByPoints arrayOfStrings={arrayOfStrings} />) }
   }
 
   return {

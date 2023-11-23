@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import filePickerLogo from '../Pics/1.png'
+import filePickerLogo from '../../Pics/1.png'
 import style from './style.module.css'
 
 export function DownloadFile({ setSelectedFile }) {
