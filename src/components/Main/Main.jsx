@@ -5,8 +5,15 @@ import { useModalWindow } from '../CustomHooks/useModalWindow'
 
 export function Main({ selectedFile }) {
   const {
-    arrayOfStrings, setChecked, onClickCheckAllRows, onDeleteButtonHandler,
+    arrayOfStrings,
+    setChecked,
+    onClickCheckAllRows,
+    onDeleteButtonHandler,
+    deleteChecked,
+    arrayOfDeletedStrings,
   } = useRows({ selectedFile })
+
+  console.log(arrayOfDeletedStrings)
 
   const {
     isModalOpen, content, closeModalClickHandler, openModalClickHandler,
@@ -33,10 +40,16 @@ export function Main({ selectedFile }) {
       </div>
 
       <button type="button" onClick={onDeleteButtonHandler}>Delete checked</button>
-
-      {arrayOfStrings.map((row) => (
-        <SingleRow key={crypto.randomUUID()} row={row} setChecked={setChecked} />
-      ))}
+      <div>
+        {arrayOfStrings.map((row) => (
+          <SingleRow
+            key={crypto.randomUUID()}
+            row={row}
+            setChecked={setChecked}
+            deleteChecked={deleteChecked}
+          />
+        ))}
+      </div>
 
     </div>
   )

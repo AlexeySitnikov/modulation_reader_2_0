@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 export const useRows = ({ selectedFile }) => {
   const [arrayOfStrings, setArrayOfStrings] = useState([])
+  const [arrayOfDeletedStrings, setArrayOfDeletedStrings] = useState([])
 
   useEffect(() => {
     if (selectedFile) {
@@ -26,7 +27,7 @@ export const useRows = ({ selectedFile }) => {
   }, [selectedFile])
 
   const setChecked = (id) => {
-    setArrayOfStrings((prev) => prev.map((el) => {
+    setArrayOfStrings((element) => element.map((el) => {
       if (el.id === id) {
         return {
           ...el,
@@ -38,18 +39,24 @@ export const useRows = ({ selectedFile }) => {
   }
 
   const deleteChecked = () => {
-    setArrayOfStrings((prev) => prev.filter((el) => !el.checked))
+    setArrayOfStrings((element) => element.filter((el) => {
+      if (el.checked) {
+        // setArrayOfDeletedStrings([...el])
+        return false
+      }
+      return el
+    }))
   }
 
   const setCheckAllRows = () => {
-    setArrayOfStrings((prev) => prev.map((el) => ({
+    setArrayOfStrings((element) => element.map((el) => ({
       ...el,
       checked: true,
     })))
   }
 
   const setUnCheckAllRows = () => {
-    setArrayOfStrings((prev) => prev.map((el) => ({
+    setArrayOfStrings((element) => element.map((el) => ({
       ...el,
       checked: false,
     })))
@@ -78,5 +85,7 @@ export const useRows = ({ selectedFile }) => {
     setUnCheckAllRows,
     onClickCheckAllRows,
     onDeleteButtonHandler,
+    arrayOfDeletedStrings,
+    setArrayOfDeletedStrings,
   }
 }
