@@ -10,10 +10,8 @@ export function Main({ selectedFile }) {
     onClickCheckAllRows,
     onDeleteButtonHandler,
     deleteChecked,
-    arrayOfDeletedStrings,
+    onClickUndoButton,
   } = useRows({ selectedFile })
-
-  console.log(arrayOfDeletedStrings)
 
   const {
     isModalOpen, content, closeModalClickHandler, openModalClickHandler,
@@ -28,6 +26,12 @@ export function Main({ selectedFile }) {
       <div>
         <input type="checkbox" id="checkAllRows" onClick={onClickCheckAllRows} />
         <span>Check all rows</span>
+      </div>
+
+      <div>
+        <button type="button" onClick={onClickUndoButton}>
+          Undo deleted string
+        </button>
       </div>
 
       <div>

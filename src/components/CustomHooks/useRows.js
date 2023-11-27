@@ -15,11 +15,12 @@ export const useRows = ({ selectedFile }) => {
           .map((el) => el.trim())
           .map((el) => el.replace(/\s\s+/g, ' '))
           .filter((el) => el.length > 0)
-          .map((element) => (
+          .map((element, index) => (
             {
               element,
               checked: false,
               id: crypto.randomUUID(),
+              index,
             }
           )))
       }
@@ -38,10 +39,14 @@ export const useRows = ({ selectedFile }) => {
     }))
   }
 
+  const addToUndoList = (el) => {
+    setArrayOfDeletedStrings([el, ...arrayOfDeletedStrings])
+  }
+
   const deleteChecked = () => {
-    setArrayOfStrings((element) => element.filter((el) => {
+    setArrayOfStrings((element) => element.filter((el, index) => {
       if (el.checked) {
-        // setArrayOfDeletedStrings([...el])
+        addToUndoList(el, index)
         return false
       }
       return el
@@ -62,6 +67,12 @@ export const useRows = ({ selectedFile }) => {
     })))
   }
 
+  const undoDeletedStrings = () => {
+    if (arrayOfDeletedStrings.length) {
+      setArrayOfStrings([arrayOfDeletedStrings[0], ...arrayOfStrings])
+    }
+  }
+
   const onClickCheckAllRows = (e) => {
     e.stopPropagation()
     if (e.target.checked) {
@@ -77,6 +88,12 @@ export const useRows = ({ selectedFile }) => {
     deleteChecked()
   }
 
+  const onClickUndoButton = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    undoDeletedStrings()
+  }
+
   return {
     arrayOfStrings,
     setChecked,
@@ -85,7 +102,7 @@ export const useRows = ({ selectedFile }) => {
     setUnCheckAllRows,
     onClickCheckAllRows,
     onDeleteButtonHandler,
-    arrayOfDeletedStrings,
-    setArrayOfDeletedStrings,
+    undoDeletedStrings,
+    onClickUndoButton,
   }
 }
