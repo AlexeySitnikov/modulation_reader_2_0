@@ -1,11 +1,13 @@
 import style from './style.module.css'
 
-export function SingleRow({ row, setChecked, deleteChecked }) {
+export function SingleRow({
+  row,
+  deleteString,
+}) {
   const onClickButtonHandler = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    setChecked(row.id)
-    deleteChecked()
+    deleteString(row.id)
   }
   return (
     <div>

@@ -6,16 +6,16 @@ import { useModalWindow } from '../CustomHooks/useModalWindow'
 export function Main({ selectedFile }) {
   const {
     arrayOfStrings,
-    setChecked,
-    onClickCheckAllRows,
-    onDeleteButtonHandler,
-    deleteChecked,
     onClickUndoButton,
+    deleteString,
+    // undoArrayOfStrings,
   } = useRows({ selectedFile })
 
   const {
     isModalOpen, content, closeModalClickHandler, openModalClickHandler,
   } = useModalWindow({ arrayOfStrings })
+
+  // console.log(undoArrayOfStrings)
 
   return (
     <div>
@@ -23,10 +23,10 @@ export function Main({ selectedFile }) {
         {content}
       </Modal>
 
-      <div>
+      {/* <div>
         <input type="checkbox" id="checkAllRows" onClick={onClickCheckAllRows} />
         <span>Check all rows</span>
-      </div>
+      </div> */}
 
       <div>
         <button type="button" onClick={onClickUndoButton}>
@@ -43,14 +43,13 @@ export function Main({ selectedFile }) {
         </button>
       </div>
 
-      <button type="button" onClick={onDeleteButtonHandler}>Delete checked</button>
+      {/* <button type="button" onClick={onDeleteButtonHandler}>Delete checked</button> */}
       <div>
         {arrayOfStrings.map((row) => (
           <SingleRow
             key={crypto.randomUUID()}
             row={row}
-            setChecked={setChecked}
-            deleteChecked={deleteChecked}
+            deleteString={deleteString}
           />
         ))}
       </div>
