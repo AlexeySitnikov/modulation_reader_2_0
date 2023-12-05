@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable array-callback-return */
 import { useEffect, useState } from 'react'
 
 export const useRows = ({ selectedFile }) => {
@@ -29,40 +27,29 @@ export const useRows = ({ selectedFile }) => {
     }
   }, [selectedFile])
 
-  // const setChecked = (id) => {
-  //   setArrayOfStrings((element) => element.map((el) => {
-  //     if (el.id === id) {
-  //       return {
-  //         ...el,
-  //         checked: !el.checked,
-  //       }
-  //     }
-  //     return el
-  //   }))
-  // }
-
   const deleteString = (id) => {
-    setArrayOfStrings((element) => element.filter((el) => {
-      if (el.id !== id) {
-        return el
-      }
-      if (el.id === id) {
-        console.log(el)
-        // undoArrayOfStrings((prev) => [...prev, el])
-      }
-    }))
+    setArrayOfStrings((element) => element.filter((el) => (el.id !== id)))
+    setUndoArrayOfString((prev) => ([arrayOfStrings.find((a) => (a.id === id)), ...prev]))
   }
 
   const onClickUndoButton = (e) => {
     e.preventDefault()
     e.stopPropagation()
+    const firstElement = undoArrayOfStrings[0]
+    if (undoArrayOfStrings.length > 0) {
+      const foundIndex = arrayOfStrings.findIndex((element) => (
+        element.index === firstElement.index + 1
+      ))
+      if (foundIndex > -1) {
+        setArrayOfStrings([...arrayOfStrings.toSpliced(foundIndex, 0, firstElement)])
+        setUndoArrayOfString([...undoArrayOfStrings.toSpliced(0, 1)])
+      }
+    }
   }
 
   return {
     arrayOfStrings,
     onClickUndoButton,
     deleteString,
-    undoArrayOfStrings,
-    setUndoArrayOfString,
   }
 }

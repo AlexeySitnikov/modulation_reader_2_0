@@ -8,25 +8,17 @@ export function Main({ selectedFile }) {
     arrayOfStrings,
     onClickUndoButton,
     deleteString,
-    // undoArrayOfStrings,
   } = useRows({ selectedFile })
 
   const {
     isModalOpen, content, closeModalClickHandler, openModalClickHandler,
   } = useModalWindow({ arrayOfStrings })
 
-  // console.log(undoArrayOfStrings)
-
   return (
     <div>
       <Modal isOpen={isModalOpen} closeModal={closeModalClickHandler}>
         {content}
       </Modal>
-
-      {/* <div>
-        <input type="checkbox" id="checkAllRows" onClick={onClickCheckAllRows} />
-        <span>Check all rows</span>
-      </div> */}
 
       <div>
         <button type="button" onClick={onClickUndoButton}>
@@ -43,7 +35,6 @@ export function Main({ selectedFile }) {
         </button>
       </div>
 
-      {/* <button type="button" onClick={onDeleteButtonHandler}>Delete checked</button> */}
       <div>
         {arrayOfStrings.map((row) => (
           <SingleRow
