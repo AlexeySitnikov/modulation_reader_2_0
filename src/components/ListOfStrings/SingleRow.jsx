@@ -10,9 +10,11 @@ export function SingleRow({
     deleteString(row.id)
   }
   return (
-    <div>
+    <div className={style.textStyle}>
       <button type="button" onClick={onClickButtonHandler} className={style.deleteButton}>X</button>
+
       {row.element}
+
     </div>
   )
 }

@@ -29,12 +29,15 @@ export const useRows = ({ selectedFile }) => {
 
   const deleteString = (id) => {
     setArrayOfStrings((element) => element.filter((el) => (el.id !== id)))
-    setUndoArrayOfString((prev) => ([arrayOfStrings.find((a) => (a.id === id)), ...prev]))
+    setUndoArrayOfString((prev) => ([
+      arrayOfStrings.find((element) => (element.id === id)),
+      ...prev,
+    ]))
   }
 
-  const onClickUndoButton = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
+  const onClickUndoButton = () => {
+    // e.preventDefault()
+    // e.stopPropagation()
     const firstElement = undoArrayOfStrings[0]
     if (undoArrayOfStrings.length > 0) {
       const foundIndex = arrayOfStrings.findIndex((element) => (
@@ -47,9 +50,12 @@ export const useRows = ({ selectedFile }) => {
     }
   }
 
+  const getUndoSteps = () => undoArrayOfStrings.length
+
   return {
     arrayOfStrings,
     onClickUndoButton,
     deleteString,
+    getUndoSteps,
   }
 }

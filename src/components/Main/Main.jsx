@@ -2,40 +2,50 @@ import { useRows } from '../CustomHooks/useRows'
 import { SingleRow } from '../ListOfStrings/SingleRow'
 import { Modal } from '../Modal/Modal'
 import { useModalWindow } from '../CustomHooks/useModalWindow'
+import style from './style.module.css'
 
 export function Main({ selectedFile }) {
   const {
     arrayOfStrings,
     onClickUndoButton,
     deleteString,
+    getUndoSteps,
   } = useRows({ selectedFile })
 
   const {
     isModalOpen, content, closeModalClickHandler, openModalClickHandler,
   } = useModalWindow({ arrayOfStrings })
 
+  const keyPress = (e) => {
+    if (e.keyCode === 90 && e.ctrlKey && getUndoSteps()) { onClickUndoButton() }
+  }
+
+  document.onkeydown = keyPress
+
   return (
-    <div>
+    <div className={style.mainPage}>
       <Modal isOpen={isModalOpen} closeModal={closeModalClickHandler}>
         {content}
       </Modal>
 
-      <div>
-        <button type="button" onClick={onClickUndoButton}>
+      <div className={style.undoButtonStyle}>
+        <button className={style.button} type="button" onClick={onClickUndoButton} disabled={getUndoSteps() === 0}>
           Undo deleted string
+          {' '}
+          {getUndoSteps() === 0 ? '' : getUndoSteps()}
         </button>
       </div>
 
-      <div>
-        <button type="button" onClick={openModalClickHandler} id="CST">
+      <div className={style.callModalWindowsStyle}>
+        <button className={style.button} type="button" onClick={openModalClickHandler} id="CST">
           Get modulation for CST
         </button>
-        <button type="button" onClick={openModalClickHandler} id="points">
+        <button className={style.button} type="button" onClick={openModalClickHandler} id="points">
           Get modulation by points
         </button>
       </div>
 
-      <div>
+      <div className={style.rows}>
         {arrayOfStrings.map((row) => (
           <SingleRow
             key={crypto.randomUUID()}
