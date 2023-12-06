@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/modulation_reader_2_0/static/css/main.eb6e188e.css",
+    "main.js": "/modulation_reader_2_0/static/js/main.86f6c4d4.js",
+    "static/media/1.png": "/modulation_reader_2_0/static/media/1.3f0784bb8877f2128ae7.png",
+    "index.html": "/modulation_reader_2_0/index.html",
+    "main.eb6e188e.css.map": "/modulation_reader_2_0/static/css/main.eb6e188e.css.map",
+    "main.86f6c4d4.js.map": "/modulation_reader_2_0/static/js/main.86f6c4d4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.eb6e188e.css",
+    "static/js/main.86f6c4d4.js"
+  ]
+}
