@@ -29,7 +29,13 @@ export function Main({ selectedFile }) {
       </Modal>
 
       <div className={style.undoButtonStyle}>
-        <button className={style.button} type="button" onClick={onClickUndoButton} disabled={getUndoSteps() === 0}>
+        <button
+          className={`${(getUndoSteps() === 0) ? style.buttonDisabled : style.button}`}
+          // className={style.button}
+          type="button"
+          onClick={onClickUndoButton}
+          disabled={getUndoSteps() === 0}
+        >
           Undo deleted string
           {' '}
           {getUndoSteps() === 0 ? '' : getUndoSteps()}

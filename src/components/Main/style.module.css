@@ -26,6 +26,18 @@
   padding: 15px;
 }
 
+.buttonDisabled{
+  background-color:gray;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  padding: 15px;
+  margin-left: 4px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 15px;
+  color: #fff;
+}
+
 .button:hover{
   color: #f6980c;
   transition: background-color 0.3s ease-in;
