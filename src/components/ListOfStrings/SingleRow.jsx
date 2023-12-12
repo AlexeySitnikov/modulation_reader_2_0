@@ -10,7 +10,10 @@ export function SingleRow({
     deleteString(row.id)
   }
   return (
-    <div className={style.textStyle}>
+    <div className={`${(row.element.includes('N ') || row.element.includes('====='))
+      ? `${style.marked} ${style.textStyle}`
+      : `${style.textStyle}`}`}
+    >
       <button type="button" onClick={onClickButtonHandler} className={style.deleteButton}>X</button>
 
       {row.element}

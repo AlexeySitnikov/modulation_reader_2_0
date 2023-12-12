@@ -31,7 +31,6 @@ export function Main({ selectedFile }) {
       <div className={style.undoButtonStyle}>
         <button
           className={`${(getUndoSteps() === 0) ? style.buttonDisabled : style.button}`}
-          // className={style.button}
           type="button"
           onClick={onClickUndoButton}
           disabled={getUndoSteps() === 0}
