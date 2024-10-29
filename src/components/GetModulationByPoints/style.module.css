@@ -40,3 +40,7 @@
 	background: #F6F6f6;
 	border-radius: 8px;
 }
+
+.disabledButton{
+  background-color: grey;
+}

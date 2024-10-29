@@ -9,6 +9,7 @@ export function SingleRow({
     e.stopPropagation()
     deleteString(row.id)
   }
+
   return (
     <div className={`${(row.element.includes('N ') || row.element.includes('====='))
       ? `${style.marked} ${style.textStyle}`

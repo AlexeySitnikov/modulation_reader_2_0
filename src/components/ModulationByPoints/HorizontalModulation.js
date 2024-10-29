@@ -30,12 +30,12 @@ export function HorizontalModulation({ arrayOfStrings, step, dimension }) {
   while (t <= Z[0]) {
     tip = ((R_0[0]
       + (t / Z[0]) * (R_0[1] - R_0[0]))
-    * (1 + (0.5 * (modulation[0] + modulation[1])
-    + 0.5 * (modulation[0] - modulation[1])
-    * Math.cos(Math.PI * (t / Z[0])) - 1)
-    / (0.5 * (modulation[0] + modulation[1])
-    + 0.5 * (modulation[0] - modulation[1])
-    * (Math.cos(Math.PI * (t / Z[0])) + 1) * Math.cos(Math.PI * (t / Z[0])))))
+      * (1 + (0.5 * (modulation[0] + modulation[1])
+        + 0.5 * (modulation[0] - modulation[1])
+        * Math.cos(Math.PI * (t / Z[0])) - 1)
+        / (0.5 * (modulation[0] + modulation[1])
+          + 0.5 * (modulation[0] - modulation[1])
+          * (Math.cos(Math.PI * (t / Z[0])) + 1) * Math.cos(Math.PI * (t / Z[0])))))
 
     horizontal.push(`${Number.parseFloat(zCoordinate / getDimension(dimension))
       .toFixed(getHowManyDigits(step / getDimension(dimension)))}\t${Number.parseFloat(tip / getDimension(dimension)).toFixed(8)}\n`)
