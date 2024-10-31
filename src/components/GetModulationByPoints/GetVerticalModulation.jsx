@@ -16,20 +16,21 @@ export function GetVerticalModulation({
         let lastPoint = 0
         let point = 0
         for (let index = 0; index < verticalModulation.length; index += 1) {
-          if (point > (cellNumber * Number(cellLength) + Number(cellLength))) {
-            console.log(`cell = ${cellNumber + 1}`)
+          point = Number(verticalModulation[index].split('\t')[0])
+          if (point === (cellNumber * Number(cellLength) + Number(cellLength))) {
+            lastPoint = point
             console.log(`firstPoint = ${firstPoint}`)
             console.log(`lastPoint = ${lastPoint}`)
             cellNumber += 1
             firstPoint = lastPoint
-          } else {
+          } else if (point > (cellNumber * Number(cellLength) + Number(cellLength))) {
             lastPoint = point
+            console.log(`firstPoint = ${firstPoint}`)
+            console.log(`lastPoint = ${lastPoint}`)
+            cellNumber += 1
+            firstPoint = Number(verticalModulation[index - 1].split('\t')[0])
           }
-          point = Number(verticalModulation[index].split('\t')[0])
         }
-        console.log(`cell = ${cellNumber + 1}`)
-        console.log(`firstPoint = ${firstPoint}`)
-        console.log(`lastPoint = ${lastPoint}`)
       }
     }
   }
@@ -43,12 +44,21 @@ export function GetVerticalModulation({
     return (`${style.button}`)
   }
 
+  const isButtonDisable = () => {
+    if (separateEachCell) {
+      if (cellLength > 0) {
+        return (false)
+      } return (true)
+    }
+    return (false)
+  }
+
   return (
     <button
       className={selectClassName()}
       type="button"
       onClick={onClickButtonHandler}
-      disabled={(((!separateEachCell) && (cellLength > 0)))}
+      disabled={isButtonDisable()}
     >
       Get vertical modulation
     </button>
