@@ -1,64 +1,45 @@
+import { useState } from 'react'
 import { Download } from '../Dowload/Download'
 import { VerticalModulation } from '../ModulationByPoints/VerticalModulation'
-import style from './style.module.css'
+import { downloadEachCell } from '../constrains/downloadEachCell'
+import { selectClassName } from '../constrains/selectClassName'
+import { isButtonDisable } from '../constrains/isButtonDisable'
 
 export function GetVerticalModulation({
   arrayOfStrings, step, dimension, separateEachCell, cellLength,
 }) {
+  const [windowHasFocus, setWindowHasFocus] = useState(true)
+
   const onClickButtonHandler = () => {
     const verticalModulation = VerticalModulation({ arrayOfStrings, step, dimension })
     if (verticalModulation) {
       if (!separateEachCell) {
         Download(verticalModulation, 'vertical.txt')
       } else {
-        let cellNumber = 0
-        let firstPoint = 0
-        let lastPoint = 0
-        let point = 0
-        for (let index = 0; index < verticalModulation.length; index += 1) {
-          point = Number(verticalModulation[index].split('\t')[0])
-          if (point === (cellNumber * Number(cellLength) + Number(cellLength))) {
-            lastPoint = point
-            console.log(`firstPoint = ${firstPoint}`)
-            console.log(`lastPoint = ${lastPoint}`)
-            cellNumber += 1
-            firstPoint = lastPoint
-          } else if (point > (cellNumber * Number(cellLength) + Number(cellLength))) {
-            lastPoint = point
-            console.log(`firstPoint = ${firstPoint}`)
-            console.log(`lastPoint = ${lastPoint}`)
-            cellNumber += 1
-            firstPoint = Number(verticalModulation[index - 1].split('\t')[0])
-          }
-        }
+        downloadEachCell({
+          verticalModulation, cellLength, windowHasFocus, step,
+        })
       }
     }
   }
 
-  const selectClassName = () => {
-    if (separateEachCell) {
-      if (cellLength > 0) {
-        return (`${style.button}`)
-      } return (`${style.button} ${style.disabledButton}`)
-    }
-    return (`${style.button}`)
+  const windowHasFocusHandler = () => {
+    setWindowHasFocus(true)
   }
 
-  const isButtonDisable = () => {
-    if (separateEachCell) {
-      if (cellLength > 0) {
-        return (false)
-      } return (true)
-    }
-    return (false)
+  const windowHasBlurHandler = () => {
+    setWindowHasFocus(false)
   }
+
+  window.addEventListener('focus', windowHasFocusHandler)
+  window.addEventListener('blur', windowHasBlurHandler)
 
   return (
     <button
-      className={selectClassName()}
+      className={selectClassName({ separateEachCell, cellLength })}
       type="button"
       onClick={onClickButtonHandler}
-      disabled={isButtonDisable()}
+      disabled={isButtonDisable({ separateEachCell, cellLength })}
     >
       Get vertical modulation
     </button>
