@@ -3,7 +3,7 @@ import { Download } from '../Dowload/Download'
 import { VerticalModulation } from '../ModulationByPoints/VerticalModulation'
 import { downloadEachCell } from '../constrains/downloadEachCell'
 import { selectClassName } from '../constrains/selectClassName'
-import { isButtonDisable } from '../constrains/isButtonDisable'
+import { isCeparatedCells } from '../constrains/isCeparatedCells'
 
 export function GetVerticalModulation({
   arrayOfStrings, step, dimension, separateEachCell, cellLength,
@@ -39,7 +39,7 @@ export function GetVerticalModulation({
       className={selectClassName({ separateEachCell, cellLength })}
       type="button"
       onClick={onClickButtonHandler}
-      disabled={isButtonDisable({ separateEachCell, cellLength })}
+      disabled={isCeparatedCells({ separateEachCell, cellLength })}
     >
       Get vertical modulation
     </button>
