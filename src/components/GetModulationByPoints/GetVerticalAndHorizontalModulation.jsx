@@ -7,13 +7,21 @@ import { isCeparatedCells } from '../constrains/isCeparatedCells'
 // import { HorizontalModulation } from '../ModulationByPoints/HorizontalModulation'
 import { downloadModulation } from '../constrains/downloadModulation'
 import style from './style.module.css'
+import { LinksToVerticalAndHorizontalModulation } from './LinksToVerticalAndHorizontalModulation'
 
 export function GetVerticalAndHorizontalModulation({
-  arrayOfStrings, step, dimension, separateEachCell, cellLength,
+  arrayOfStrings, step, dimension, separateEachCell, cellLength, setContent,
 }) {
   const [windowHasFocus, setWindowHasFocus] = useState(true)
 
   const onClickButtonHandler = () => {
+    setContent(<LinksToVerticalAndHorizontalModulation
+      arrayOfStrings={arrayOfStrings}
+      step={step}
+      dimension={dimension}
+      separateEachCell={separateEachCell}
+      cellLength={cellLength}
+    />)
     downloadModulation({
       arrayOfStrings, step, dimension, cellLength, windowHasFocus, separateEachCell,
     })

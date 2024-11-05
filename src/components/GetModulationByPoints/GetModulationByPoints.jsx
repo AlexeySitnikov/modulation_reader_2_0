@@ -6,7 +6,7 @@ import { useDimensions } from '../CustomHooks/useDimensions'
 import { SeparateEachCell } from './SeparateEachCell'
 import { GetVerticalAndHorizontalModulation } from './GetVerticalAndHorizontalModulation'
 
-export function GetModulationByPoints({ arrayOfStrings }) {
+export function GetModulationByPoints({ arrayOfStrings, setContent }) {
   const {
     step,
     setStep,
@@ -31,6 +31,7 @@ export function GetModulationByPoints({ arrayOfStrings }) {
           dimension={dimension}
           separateEachCell={separateEachCell}
           cellLength={cellLength}
+          setContent={setContent}
         />
         {/* <GetVerticalModulation
           arrayOfStrings={arrayOfStrings}
