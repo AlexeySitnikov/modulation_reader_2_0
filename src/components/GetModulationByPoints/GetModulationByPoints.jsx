@@ -1,10 +1,9 @@
-// import { GetHorizontalModulation } from './GetHorizontalModulation'
-// import { GetVerticalModulation } from './GetVerticalModulation'
 import { SetDimension } from './SetDimension'
 import { SetStep } from './SetStep'
 import { useDimensions } from '../CustomHooks/useDimensions'
 import { SeparateEachCell } from './SeparateEachCell'
 import { GetVerticalAndHorizontalModulation } from './GetVerticalAndHorizontalModulation'
+import style from './style.module.css'
 
 export function GetModulationByPoints({ arrayOfStrings, setContent }) {
   const {
@@ -24,7 +23,7 @@ export function GetModulationByPoints({ arrayOfStrings, setContent }) {
           setCellLength={setCellLength}
         />
       </div>
-      <div>
+      <div className={style.GetVerticalAndHorizontalModulation}>
         <GetVerticalAndHorizontalModulation
           arrayOfStrings={arrayOfStrings}
           step={step}
@@ -33,18 +32,6 @@ export function GetModulationByPoints({ arrayOfStrings, setContent }) {
           cellLength={cellLength}
           setContent={setContent}
         />
-        {/* <GetVerticalModulation
-          arrayOfStrings={arrayOfStrings}
-          step={step}
-          dimension={dimension}
-          separateEachCell={separateEachCell}
-          cellLength={cellLength}
-        />
-        <GetHorizontalModulation
-          arrayOfStrings={arrayOfStrings}
-          step={step}
-          dimension={dimension}
-        /> */}
       </div>
     </div>
   )

@@ -1,54 +1,80 @@
 import { downloadEachCell } from '../constrains/downloadEachCell'
+import { Download } from '../Dowload/Download'
 import { HorizontalModulation } from '../ModulationByPoints/HorizontalModulation'
 import { VerticalModulation } from '../ModulationByPoints/VerticalModulation'
-// import { GetHorizontalModulation } from './GetHorizontalModulation'
 import { GetModulation } from './GetModulation'
-// import { GetVerticalModulation } from './GetVerticalModulation'
+import style from './style.module.css'
 
 export function LinksToVerticalAndHorizontalModulation({
   arrayOfStrings, step, dimension, separateEachCell, cellLength,
 }) {
   let verticalModulation = []
-  const horizontalModulation = []
+  let horizontalModulation = []
+  let fileName = ''
 
   if (!separateEachCell) {
     verticalModulation.push(VerticalModulation({ arrayOfStrings, step, dimension }))
     horizontalModulation.push(HorizontalModulation({ arrayOfStrings, step, dimension }))
+    Download(verticalModulation, 'vertical.txt')
+    Download(horizontalModulation, 'horizontal.txt')
   } else {
     verticalModulation = downloadEachCell(
       { modulation: VerticalModulation({ arrayOfStrings, step, dimension }), cellLength },
     )
-    horizontalModulation.push(downloadEachCell(
+    for (let index = 0; index < verticalModulation.length; index += 1) {
+      fileName = `cell_${index + 1}_cellLength_${cellLength}mm_step_${step}mm_vertical.txt`
+      Download(verticalModulation[index], fileName)
+    }
+    horizontalModulation = downloadEachCell(
       { modulation: HorizontalModulation({ arrayOfStrings, step, dimension }), cellLength },
-    ))
+    )
+    for (let index = 0; index < horizontalModulation.length; index += 1) {
+      fileName = `cell_${index + 1}_cellLength_${cellLength}mm_step_${step}mm_horizontal.txt`
+      Download(horizontalModulation[index], fileName)
+    }
   }
-
-  console.log(verticalModulation)
-  console.log(horizontalModulation)
 
   if (separateEachCell) {
-    return (<div>Ссылки на все секции резонатора</div>)
+    return (
+      <div className={style.separatedCellsModal}>
+        <p>
+          Если загрузка не началась нажмите на ссылки
+        </p>
+        <div className={style.listOfCells}>
+          <div>
+            {verticalModulation.map((element, index) => (
+              <div key={crypto.randomUUID()}>
+                <GetModulation
+                  modulation={element}
+                  name={`cell_${index + 1}_vertical`}
+                  fileName={`cell_${index + 1}_cellLength_${cellLength}mm_step_${step}mm_vertical`}
+                  key={crypto.randomUUID()}
+                />
+              </div>
+            ))}
+          </div>
+          <div>
+            {horizontalModulation.map((element, index) => (
+              <div>
+                <GetModulation
+                  modulation={element}
+                  name={`cell_${index + 1}_horizontal`}
+                  fileName={`cell_${index + 1}_cellLength_${cellLength}mm_step_${step}mm_horizontal`}
+                  key={crypto.randomUUID()}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
   }
   return (
-    <div>
+    <div className={style.GetModulationNotSeparateCells}>
       Если загрузка не началась нажмите на ссылки
       <div>
         <GetModulation modulation={verticalModulation[0]} name="vertical" />
         <GetModulation modulation={horizontalModulation[0]} name="horizontal" />
-        {/* <GetVerticalModulation
-          arrayOfStrings={arrayOfStrings}
-          step={step}
-          dimension={dimension}
-          separateEachCell={separateEachCell}
-          cellLength={cellLength}
-        />
-        <GetHorizontalModulation
-          arrayOfStrings={arrayOfStrings}
-          step={step}
-          dimension={dimension}
-          separateEachCell={separateEachCell}
-          cellLength={cellLength}
-        /> */}
       </div>
     </div>
   )

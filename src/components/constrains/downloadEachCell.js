@@ -31,5 +31,5 @@ export function downloadEachCell({
       // }
     }
   }
-  return cell
+  return cell.slice(0, cell.length - 1)
 }
