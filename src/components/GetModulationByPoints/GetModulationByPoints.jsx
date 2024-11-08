@@ -4,12 +4,15 @@ import { useDimensions } from '../CustomHooks/useDimensions'
 import { SeparateEachCell } from './SeparateEachCell'
 import { GetVerticalAndHorizontalModulation } from './GetVerticalAndHorizontalModulation'
 import style from './style.module.css'
+import { SetEachCellToZeroPoint } from './SetEachCellToZeroPoint'
 
 export function GetModulationByPoints({ arrayOfStrings, setContent }) {
   const {
-    step,
-    setStep,
-    dimension, setDimension, separateEachCell, setSeparateEachCell, cellLength, setCellLength,
+    step, setStep,
+    dimension, setDimension,
+    separateEachCell, setSeparateEachCell,
+    cellLength, setCellLength,
+    eachCellToZeroPoint, setEachCellToZeroPoint,
   } = useDimensions()
 
   return (
@@ -22,6 +25,12 @@ export function GetModulationByPoints({ arrayOfStrings, setContent }) {
           setSeparateEachCell={setSeparateEachCell}
           setCellLength={setCellLength}
         />
+        <SetEachCellToZeroPoint
+          eachCellToZeroPoint={eachCellToZeroPoint}
+          setEachCellToZeroPoint={setEachCellToZeroPoint}
+          cellLength={cellLength}
+          separateEachCell={separateEachCell}
+        />
       </div>
       <div className={style.GetVerticalAndHorizontalModulation}>
         <GetVerticalAndHorizontalModulation
@@ -30,6 +39,7 @@ export function GetModulationByPoints({ arrayOfStrings, setContent }) {
           dimension={dimension}
           separateEachCell={separateEachCell}
           cellLength={cellLength}
+          eachCellToZeroPoint={eachCellToZeroPoint}
           setContent={setContent}
         />
       </div>

@@ -1,4 +1,5 @@
 import { downloadEachCell } from '../constrains/downloadEachCell'
+import { getEachCellToZeroPoint } from '../constrains/getEachCellToZeroPoint'
 import { Download } from '../Dowload/Download'
 import { HorizontalModulation } from '../ModulationByPoints/HorizontalModulation'
 import { VerticalModulation } from '../ModulationByPoints/VerticalModulation'
@@ -6,7 +7,7 @@ import { GetModulation } from './GetModulation'
 import style from './style.module.css'
 
 export function LinksToVerticalAndHorizontalModulation({
-  arrayOfStrings, step, dimension, separateEachCell, cellLength,
+  arrayOfStrings, step, dimension, separateEachCell, cellLength, eachCellToZeroPoint,
 }) {
   let verticalModulation = []
   let horizontalModulation = []
@@ -18,16 +19,28 @@ export function LinksToVerticalAndHorizontalModulation({
     Download(verticalModulation, 'vertical.txt')
     Download(horizontalModulation, 'horizontal.txt')
   } else {
-    verticalModulation = downloadEachCell(
-      { modulation: VerticalModulation({ arrayOfStrings, step, dimension }), cellLength },
-    )
+    verticalModulation = downloadEachCell({
+      modulation: VerticalModulation({ arrayOfStrings, step, dimension }),
+      cellLength,
+    })
+    if (eachCellToZeroPoint) {
+      verticalModulation = getEachCellToZeroPoint({
+        modulation: verticalModulation, step, dimension, cellLength,
+      })
+    }
     for (let index = 0; index < verticalModulation.length; index += 1) {
       fileName = `cell_${index + 1}_cellLength_${cellLength}mm_step_${step}mm_vertical.txt`
       Download(verticalModulation[index], fileName)
     }
-    horizontalModulation = downloadEachCell(
-      { modulation: HorizontalModulation({ arrayOfStrings, step, dimension }), cellLength },
-    )
+    horizontalModulation = downloadEachCell({
+      modulation: HorizontalModulation({ arrayOfStrings, step, dimension }),
+      cellLength,
+    })
+    if (eachCellToZeroPoint) {
+      horizontalModulation = getEachCellToZeroPoint({
+        modulation: horizontalModulation, step, dimension, cellLength,
+      })
+    }
     for (let index = 0; index < horizontalModulation.length; index += 1) {
       fileName = `cell_${index + 1}_cellLength_${cellLength}mm_step_${step}mm_horizontal.txt`
       Download(horizontalModulation[index], fileName)

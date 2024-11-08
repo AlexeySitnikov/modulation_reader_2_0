@@ -4,7 +4,7 @@ import style from './style.module.css'
 import { LinksToVerticalAndHorizontalModulation } from './LinksToVerticalAndHorizontalModulation'
 
 export function GetVerticalAndHorizontalModulation({
-  arrayOfStrings, step, dimension, separateEachCell, cellLength, setContent,
+  arrayOfStrings, step, dimension, separateEachCell, cellLength, setContent, eachCellToZeroPoint,
 }) {
   const [windowHasFocus, setWindowHasFocus] = useState(true)
 
@@ -16,6 +16,7 @@ export function GetVerticalAndHorizontalModulation({
       separateEachCell={separateEachCell}
       cellLength={cellLength}
       windowHasFocus={windowHasFocus}
+      eachCellToZeroPoint={eachCellToZeroPoint}
     />)
   }
 

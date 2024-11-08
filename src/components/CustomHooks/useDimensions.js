@@ -5,6 +5,7 @@ export const useDimensions = () => {
   const [dimension, setDimension] = useState('mm')
   const [separateEachCell, setSeparateEachCell] = useState(false)
   const [cellLength, setCellLength] = useState(0)
+  const [eachCellToZeroPoint, setEachCellToZeroPoint] = useState(false)
 
   return {
     step,
@@ -15,5 +16,7 @@ export const useDimensions = () => {
     setSeparateEachCell,
     cellLength,
     setCellLength,
+    eachCellToZeroPoint,
+    setEachCellToZeroPoint,
   }
 }
